@@ -1,75 +1,30 @@
-import { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import Navigation from "../components/Navigation";
-import { auth, googleProvider } from "../firebaseConfig";
-import axios from "axios";
 import FrequencyForm from "../components/FrequencyForm";
+import { useAuth } from "../hooks/useAuth";
 
 const AdminPage = () => {
-  const [user, setUser] = useState<firebase.User | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      setUser(user);
-      if (user) {
-        checkAdmin(user);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  const checkAdmin = async (user: firebase.User) => {
-    try {
-      const token = await user.getIdToken();
-      const response = await axios.get("http://localhost:5000/api/auth/check", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setIsAdmin(response.data.isAdmin);
-    } catch (error) {
-      console.error("Error verifying admin:", error);
-      setIsAdmin(false);
-    }
-  };
-
-  const loginWithGoogle = async () => {
-    try {
-      const result = await auth.signInWithPopup(googleProvider);
-      const user = result.user;
-      if (user) {
-        setUser(user);
-        checkAdmin(user);
-      }
-    } catch (error) {
-      console.error("Error logging in with Google:", error);
-    }
-  };
-
-  const handleLogout = () => {
-    auth.signOut().then(() => {
-      setUser(null);
-      setIsAdmin(false);
-    });
-  };
+  const { user, isAdmin, loginWithGoogle, logout } = useAuth();
 
   return (
-    <div>
+    <Box>
       <Navigation
         user={user}
         isAdmin={isAdmin}
         onLogin={loginWithGoogle}
-        onLogout={handleLogout}
+        onLogout={logout}
       />
-      {isAdmin && (
-        <>
-          <h1>Admin Dashboard</h1>
+      <Box textAlign="center" mt={4}>
+        <Typography variant="h4">Admin Dashboard</Typography>
+        {isAdmin ? (
           <FrequencyForm isAdmin={isAdmin} />
-        </>
-      )}
-    </div>
+        ) : (
+          <Typography color="error">
+            Only admins can add frequencies.
+          </Typography>
+        )}
+      </Box>
+    </Box>
   );
 };
 

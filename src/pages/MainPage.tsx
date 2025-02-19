@@ -18,7 +18,7 @@ const MainPage = () => {
   const fetchFrequencies = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/frequencies/latest"
+        "https://radiofreq-production.up.railway.app/api/frequencies/latest"
       );
       setFrequencies(response.data);
     } catch (error) {

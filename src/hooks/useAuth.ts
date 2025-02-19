@@ -19,9 +19,12 @@ export const useAuth = () => {
   const checkAdmin = async (user: firebase.User) => {
     try {
       const token = await user.getIdToken();
-      const response = await axios.get("http://localhost:5000/api/auth/check", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "https://radiofreq-production.up.railway.app/api/auth/check",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setIsAdmin(response.data.isAdmin);
     } catch (error) {

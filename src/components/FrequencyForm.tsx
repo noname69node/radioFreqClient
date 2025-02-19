@@ -33,12 +33,16 @@ const FrequencyForm: React.FC<FrequencyFormProps> = ({ isAdmin }) => {
       const token = await user.getIdToken(); // Retrieve the JWT token
 
       // Send request with token in headers
-      await axios.post("http://localhost:5000/api/frequencies", newFrequency, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Attach token to request
-        },
-      });
+      await axios.post(
+        "https://radiofreq-production.up.railway.app/api/frequencies",
+        newFrequency,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Attach token to request
+          },
+        }
+      );
 
       alert("Frequency added successfully!");
       setFrequency37("");
