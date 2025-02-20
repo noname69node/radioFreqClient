@@ -2,8 +2,10 @@ import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Home, AdminPanelSettings, Login, Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
+import { User } from "firebase/auth";
+
 interface NavigationProps {
-  user: firebase.User | null;
+  user: User | null;
   isAdmin: boolean;
   onLogin: () => void;
   onLogout: () => void;

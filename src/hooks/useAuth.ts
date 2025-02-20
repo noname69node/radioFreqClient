@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { auth, googleProvider } from "../firebaseConfig";
 import axios from "axios";
 
+import { User, signInWithPopup } from "firebase/auth";
+
 export const useAuth = () => {
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export const useAuth = () => {
     return () => unsubscribe();
   }, []);
 
-  const checkAdmin = async (user: firebase.User) => {
+  const checkAdmin = async (user: User) => {
     try {
       const token = await user.getIdToken();
       const response = await axios.get(
@@ -35,7 +37,7 @@ export const useAuth = () => {
 
   const loginWithGoogle = async () => {
     try {
-      const result = await auth.signInWithPopup(googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
         setUser(user);
