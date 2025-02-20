@@ -53,16 +53,20 @@ const MainPage = () => {
           You can find me here:
         </Typography>
         <Typography
-          variant="h5"
-          sx={{
-            fontSize: "2rem",
-            fontWeight: 500,
-            color: "#00796b",
-            letterSpacing: "1px",
-          }}
-        >
-          3,7{frequencies.frequency_37} 3,8{frequencies.frequency_38}
-        </Typography>
+  variant="h4" // Increases text size
+  sx={{
+    fontSize: "3rem", // Bigger text
+    fontWeight: "bold", // Bolder text
+    color: "#00796b",
+    letterSpacing: "2px", // More space between letters
+    display: "flex",
+    justifyContent: "center",
+    gap: "1rem", // Adds spacing between numbers
+  }}
+>
+  3.7&nbsp;{frequencies.frequency_37} &nbsp;&nbsp; 3.8&nbsp;{frequencies.frequency_38}
+</Typography>
+
       </Box>
     </Box>
   );
