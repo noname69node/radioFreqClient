@@ -52,20 +52,39 @@ const MainPage = () => {
         <Typography variant="h4" fontWeight={700} color="#333" mb={2}>
           You can find me here:
         </Typography>
-        <Typography
-  variant="h4" // Increases text size
-  sx={{
-    fontSize: "3rem", // Bigger text
-    fontWeight: "bold", // Bolder text
-    color: "#00796b",
-    letterSpacing: "2px", // More space between letters
-    display: "flex",
-    justifyContent: "center",
-    gap: "1rem", // Adds spacing between numbers
-  }}
->
-  3.7&nbsp;{frequencies.frequency_37} &nbsp;&nbsp; 3.8&nbsp;{frequencies.frequency_38}
-</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "3rem", // Adds spacing between 3,7 and 3,8
+            mt: 2, // Adds some margin on top
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontSize: "3rem", // Bigger text
+              fontWeight: "bold", // Bold text
+              color: "#00796b",
+              letterSpacing: "2px",
+            }}
+          >
+            3,7 {frequencies.frequency_37}
+          </Typography>
+
+          <Typography
+            variant="h4"
+            sx={{
+              fontSize: "3rem", // Bigger text
+              fontWeight: "bold", // Bold text
+              color: "#00796b",
+              letterSpacing: "2px",
+            }}
+          >
+            3,8 {frequencies.frequency_38}
+          </Typography>
+        </Box>
 
       </Box>
     </Box>
