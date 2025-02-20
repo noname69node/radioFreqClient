@@ -70,7 +70,7 @@ const MainPage = () => {
               letterSpacing: "2px",
             }}
           >
-            3,7 {frequencies.frequency_37}
+            3,7{frequencies.frequency_37}
           </Typography>
 
           <Typography
@@ -82,7 +82,7 @@ const MainPage = () => {
               letterSpacing: "2px",
             }}
           >
-            3,8 {frequencies.frequency_38}
+            3,8{frequencies.frequency_38}
           </Typography>
         </Box>
 
