@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Box, Avatar } from "@mui/material";
 import { Home, AdminPanelSettings, Login, Logout } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -34,6 +34,18 @@ const Navigation: React.FC<NavigationProps> = ({
           <IconButton color="inherit" component={Link} to="/admin">
             <AdminPanelSettings />
           </IconButton>
+        )}
+
+        {/* User Info (Full Name & Avatar) */}
+        {user && (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mr: 2 }}>
+            <Avatar
+              src={user.photoURL || ""}
+              alt={user.displayName || "User"}
+              sx={{ width: 40, height: 40 }}
+            />
+            <Typography variant="body1">{user.displayName}</Typography>
+          </Box>
         )}
 
         {/* Login/Logout Button */}
