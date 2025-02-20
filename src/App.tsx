@@ -6,7 +6,7 @@ import UserPage from "./pages/UserPage";
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/radioFreqClient/">
       <Routes>
         {/* Main page route */}
         <Route path="/" element={<MainPage />} />
