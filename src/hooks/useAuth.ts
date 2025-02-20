@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { auth, googleProvider } from "../firebaseConfig";
 import axios from "axios";
 
-import { User, signInWithPopup } from "firebase/auth";
+import { User, signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -16,6 +16,23 @@ export const useAuth = () => {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // Handle redirect result when the user returns to the app
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          setUser(result.user);
+          checkAdmin(result.user);
+        }
+      } catch (error) {
+        console.error("Error handling redirect result:", error);
+      }
+    };
+
+    handleRedirectResult();
   }, []);
 
   const checkAdmin = async (user: User) => {
@@ -37,12 +54,7 @@ export const useAuth = () => {
 
   const loginWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      if (user) {
-        setUser(user);
-        checkAdmin(user);
-      }
+      await signInWithRedirect(auth, googleProvider);
     } catch (error) {
       console.error("Error logging in with Google:", error);
     }
