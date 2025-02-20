@@ -11,14 +11,35 @@ const FrequencyForm: React.FC<FrequencyFormProps> = ({ isAdmin }) => {
   const [frequency37, setFrequency37] = useState("");
   const [frequency38, setFrequency38] = useState("");
   const [description, setDescription] = useState("");
+  const [error37, setError37] = useState("");
+  const [error38, setError38] = useState("");
+
+  const handleFrequencyChange = (value: string, setter: (val: string) => void, setError: (msg: string) => void) => {
+    if (/^\d{0,5}$/.test(value)) {
+      setError("");
+      setter(value);
+    } else {
+      setError("Enter only 5 digits");
+    }
+  };
+
+  const formatFrequency = (value: string) => {
+    return value.length === 5 ? `${value.slice(0, 2)}.${value.slice(2)}` : value;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAdmin) return;
 
+    if (frequency37.length !== 5 || frequency38.length !== 5) {
+      setError37(frequency37.length !== 5 ? "Enter exactly 5 digits" : "");
+      setError38(frequency38.length !== 5 ? "Enter exactly 5 digits" : "");
+      return;
+    }
+
     const newFrequency = {
-      frequency_37: frequency37,
-      frequency_38: frequency38,
+      frequency_37: formatFrequency(frequency37),
+      frequency_38: formatFrequency(frequency38),
       description: description || "No description",
     };
 
@@ -81,22 +102,26 @@ const FrequencyForm: React.FC<FrequencyFormProps> = ({ isAdmin }) => {
         )}
 
         <TextField
-          label="Frequency 37"
+          label="Frequency 37 (5 digits)"
           variant="outlined"
           fullWidth
           value={frequency37}
-          onChange={(e) => setFrequency37(e.target.value)}
+          onChange={(e) => handleFrequencyChange(e.target.value, setFrequency37, setError37)}
           required
           disabled={!isAdmin}
+          error={!!error37}
+          helperText={error37 || "Enter 5 digits, will be formatted automatically"}
         />
         <TextField
-          label="Frequency 38"
+          label="Frequency 38 (5 digits)"
           variant="outlined"
           fullWidth
           value={frequency38}
-          onChange={(e) => setFrequency38(e.target.value)}
+          onChange={(e) => handleFrequencyChange(e.target.value, setFrequency38, setError38)}
           required
           disabled={!isAdmin}
+          error={!!error38}
+          helperText={error38 || "Enter 5 digits, will be formatted automatically"}
         />
         <TextField
           label="Description (optional)"
