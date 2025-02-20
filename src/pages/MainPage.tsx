@@ -28,6 +28,7 @@ const MainPage = () => {
 
   return (
     <Box>
+      {/* Navigation Bar */}
       <Navigation
         user={user}
         isAdmin={isAdmin}
@@ -35,57 +36,65 @@ const MainPage = () => {
         onLogout={logout}
       />
 
+      {/* Centered Content */}
       <Box
         display="flex"
-        flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        height="calc(100vh - 64px)"
-        sx={{
-          backgroundColor: "#f5f5f5",
-          textAlign: "center",
-          p: 3,
-          borderRadius: 2,
-          boxShadow: 2,
-        }}
+        height="calc(100vh - 64px)" // Ensures vertical centering
       >
-        <Typography variant="h4" fontWeight={700} color="#333" mb={2}>
-          You can find me here:
-        </Typography>
         <Box
           sx={{
+            width: "50%",
+            minHeight: "300px",
+            backgroundColor: "#f5f5f5",
+            textAlign: "center",
+            p: 3,
+            borderRadius: 2,
+            boxShadow: 2,
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
-            gap: "3rem", // Adds spacing between 3,7 and 3,8
-            mt: 2, // Adds some margin on top
+            justifyContent: "center", // Centers text inside
           }}
         >
-          <Typography
-            variant="h4"
+          <Typography variant="h4" fontWeight={700} color="#333" mb={2}>
+            You can find me here:
+          </Typography>
+          <Box
             sx={{
-              fontSize: "3rem", // Bigger text
-              fontWeight: "bold", // Bold text
-              color: "#00796b",
-              letterSpacing: "2px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "3rem",
+              mt: 2,
             }}
           >
-            3.7{frequencies.frequency_37}
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                color: "#00796b",
+                letterSpacing: "2px",
+              }}
+            >
+              3.7{frequencies.frequency_37}
+            </Typography>
 
-          <Typography
-            variant="h4"
-            sx={{
-              fontSize: "3rem", // Bigger text
-              fontWeight: "bold", // Bold text
-              color: "#00796b",
-              letterSpacing: "2px",
-            }}
-          >
-            3.8{frequencies.frequency_38}
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                color: "#00796b",
+                letterSpacing: "2px",
+              }}
+            >
+              3.8{frequencies.frequency_38}
+            </Typography>
+          </Box>
         </Box>
-
       </Box>
     </Box>
   );

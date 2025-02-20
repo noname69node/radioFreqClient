@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Box, Avatar } from "@mui/material";
-import { Home, AdminPanelSettings, Login, Logout } from "@mui/icons-material";
+import { Home, AdminPanelSettings, Login, Logout, Settings } from "@mui/icons-material";
+
 import { Link } from "react-router-dom";
 
 import { User } from "firebase/auth";
@@ -29,12 +30,7 @@ const Navigation: React.FC<NavigationProps> = ({
           Frequency Tracker
         </Typography>
 
-        {/* Admin Button (visible only if user is admin) */}
-        {isAdmin && (
-          <IconButton color="inherit" component={Link} to="/admin">
-            <AdminPanelSettings />
-          </IconButton>
-        )}
+        
 
         {/* User Info (Full Name & Avatar) */}
         {user && (
@@ -46,6 +42,19 @@ const Navigation: React.FC<NavigationProps> = ({
             />
             <Typography variant="body1">{user.displayName}</Typography>
           </Box>
+        )}
+
+        {/* Admin Button (visible only if user is admin) */}
+        {isAdmin && (
+          <IconButton color="inherit" component={Link} to="/admin">
+            <AdminPanelSettings />
+          </IconButton>
+        )}
+
+        {user && (
+          <IconButton color="inherit">
+            <Settings />
+          </IconButton>
         )}
 
         {/* Login/Logout Button */}
