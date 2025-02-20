@@ -11,29 +11,10 @@ const FrequencyForm: React.FC<FrequencyFormProps> = ({ isAdmin }) => {
   const [frequency37, setFrequency37] = useState("");
   const [frequency38, setFrequency38] = useState("");
   const [description, setDescription] = useState("");
-  const [error37, setError37] = useState("");
-  const [error38, setError38] = useState("");
-
-  const frequencyPattern = /^\d{2}\,\d{3}$/; // Matches xx.xxx format
-
-  const handleFrequencyChange = (value: string, setter: (val: string) => void, setError: (msg: string) => void) => {
-    if (value === "" || frequencyPattern.test(value)) {
-      setError("");
-      setter(value);
-    } else {
-      setError("Invalid format. Use xx.xxx");
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAdmin) return;
-
-    if (!frequencyPattern.test(frequency37) || !frequencyPattern.test(frequency38)) {
-      setError37(!frequencyPattern.test(frequency37) ? "Invalid format. Use xx.xxx" : "");
-      setError38(!frequencyPattern.test(frequency38) ? "Invalid format. Use xx.xxx" : "");
-      return;
-    }
 
     const newFrequency = {
       frequency_37: frequency37,
@@ -100,26 +81,22 @@ const FrequencyForm: React.FC<FrequencyFormProps> = ({ isAdmin }) => {
         )}
 
         <TextField
-          label="Frequency 37 (xx.xxx)"
+          label="Frequency 37"
           variant="outlined"
           fullWidth
           value={frequency37}
-          onChange={(e) => handleFrequencyChange(e.target.value, setFrequency37, setError37)}
+          onChange={(e) => setFrequency37(e.target.value)}
           required
           disabled={!isAdmin}
-          error={!!error37}
-          helperText={error37}
         />
         <TextField
-          label="Frequency 38 (yy.yyy)"
+          label="Frequency 38"
           variant="outlined"
           fullWidth
           value={frequency38}
-          onChange={(e) => handleFrequencyChange(e.target.value, setFrequency38, setError38)}
+          onChange={(e) => setFrequency38(e.target.value)}
           required
           disabled={!isAdmin}
-          error={!!error38}
-          helperText={error38}
         />
         <TextField
           label="Description (optional)"
