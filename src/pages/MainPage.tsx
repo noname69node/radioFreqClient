@@ -59,7 +59,7 @@ const MainPage = () => {
           }}
         >
           <Typography variant="h4" fontWeight={700} color="#333" mb={2}>
-            You can find me here:
+            Mes esame čia:
           </Typography>
           <Box
             sx={{
